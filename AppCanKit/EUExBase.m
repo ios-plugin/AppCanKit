@@ -109,22 +109,29 @@ NSString *const kAppCanRemoteURLPrefixHTTPS = @"https://";
 @implementation EUExBase
 
 
+
 id<AppCanWebViewEngineObject> AppCanRootWebViewEngine(void){
-    id appDelegate = [UIApplication sharedApplication].delegate;
-    if ([[appDelegate class] conformsToProtocol:@protocol(AppCanGlobalObjectGetter)]) {
-        if ([appDelegate respondsToSelector:@selector(getAppCanRootWebViewEngine)]) {
-            return [appDelegate getAppCanRootWebViewEngine];
-        }
+    Class engine = NSClassFromString(@"AppCanEngine");
+    if (engine && [engine respondsToSelector:@selector(getAppCanRootWebViewEngine)]) {
+        return [engine getAppCanRootWebViewEngine];
     }
+    id appDelegate = [UIApplication sharedApplication].delegate;
+    if ([appDelegate respondsToSelector:@selector(getAppCanRootWebViewEngine)]) {
+        return [appDelegate getAppCanRootWebViewEngine];
+    }
+    
     return nil;
 }
 id<AppCanWidgetObject> AppCanMainWidget(void){
-    id appDelegate = [UIApplication sharedApplication].delegate;
-    if ([[appDelegate class] conformsToProtocol:@protocol(AppCanGlobalObjectGetter)]) {
-        if ([appDelegate respondsToSelector:@selector(getAppCanMainWidget)]) {
-            return [appDelegate getAppCanMainWidget];
-        }
+    Class engine = NSClassFromString(@"AppCanEngine");
+    if (engine && [engine respondsToSelector:@selector(getAppCanMainWidget)]) {
+        return [engine getAppCanMainWidget];
     }
+    id appDelegate = [UIApplication sharedApplication].delegate;
+    if ([appDelegate respondsToSelector:@selector(getAppCanMainWidget)]) {
+        return [appDelegate getAppCanMainWidget];
+    }
+    
     return nil;
 };
 
