@@ -41,7 +41,7 @@ __attribute__((constructor)) static void initBaseDefine(){
 APPCAN_EXPORT UEX_ERROR _uex_ErrorMake(NSInteger code,NSString * _Nullable description,NSDictionary * _Nullable info,const char * func){
     NSMutableString *log = nil;
     if (description) {
-        log = [NSMutableString stringWithFormat:@"%s -> an error(code: %ld) happend: %@",func,(long)code,description];
+        log = [NSMutableString stringWithFormat:@"%s -> an error(code: %ld) happened: %@",func,(long)code,description];
     }
     if (info) {
         [log appendFormat:@", errInfo: %@",info];
