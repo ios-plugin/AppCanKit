@@ -34,6 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong,readonly) NSString *widgetId;
 @property (nonatomic,strong,readonly) NSString *appId;
 @property (nonatomic,strong,readonly) NSString *appKey;
+@property (nonatomic,strong,readonly) NSString *channelCode;
 @property (nonatomic,strong,readonly) NSString *widgetName;
 @property (nonatomic,strong,readonly) NSString *ver;
 @property (nonatomic,strong,readonly) NSString *iconPath;
