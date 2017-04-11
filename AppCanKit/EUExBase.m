@@ -30,6 +30,7 @@ NSString *const kAppCanLocalURLPrefixWidgets = @"wgts://";
 NSString *const kAppCanLocalURLPrefixResource = @"res://";
 NSString *const kAppCanLocalURLPrefixWidgetRoot = @"wgtroot://";
 NSString *const kAppCanLocalURLPrefixBox = @"box://";
+NSString *const kAppCanLocalURLPrefixExterbox = @"exterbox://";
 
 NSString *const kAppCanRemoteURLPrefixHTTP = @"http://";
 NSString *const kAppCanRemoteURLPrefixHTTPS = @"https://";
@@ -173,6 +174,12 @@ id<AppCanWidgetObject> AppCanMainWidget(void){
 - (NSString *)absPath:(NSString *)inPath{
     inPath = [inPath stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 
+    //exterbox路径在iOS中等于box
+    if ([inPath isEqualToString:kAppCanLocalURLPrefixExterbox]) {
+        
+        inPath = kAppCanLocalURLPrefixBox;
+    }
+    
     for (NSString *prefix in self.pathPrefixExceptions) {
         if ([inPath hasPrefix:prefix]) {
             return inPath;
