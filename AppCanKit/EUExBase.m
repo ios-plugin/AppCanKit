@@ -95,6 +95,7 @@ NSString *const kAppCanRemoteURLPrefixHTTPS = @"https://";
     [parsers addObject:[[AppCanCunstomURLParser alloc] initWithPrefix:kAppCanLocalURLPrefixWidgets basicPath:[documentPath stringByAppendingPathComponent:@"widgets"]]];
     [parsers addObject:[[AppCanCunstomURLParser alloc] initWithPrefix:kAppCanLocalURLPrefixWidgetRoot basicPath:widget.widgetPath]];
     [parsers addObject:[[AppCanCunstomURLParser alloc] initWithPrefix:kAppCanLocalURLPrefixBox basicPath:[documentPath stringByAppendingPathComponent:@"box"]]];
+    [parsers addObject:[[AppCanCunstomURLParser alloc] initWithPrefix:kAppCanLocalURLPrefixExterbox basicPath:[documentPath stringByAppendingPathComponent:@"exterbox"]]];
     [parserGroup setObject:parsers forKey:widget.appId];
     return parsers;
 }
@@ -174,12 +175,7 @@ id<AppCanWidgetObject> AppCanMainWidget(void){
 - (NSString *)absPath:(NSString *)inPath{
     inPath = [inPath stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 
-    //exterbox路径在iOS中等于box
-    if ([inPath isEqualToString:kAppCanLocalURLPrefixExterbox]) {
-        
-        inPath = kAppCanLocalURLPrefixBox;
-    }
-    
+    //exterbox路径在iOS中等于box(逻辑)
     for (NSString *prefix in self.pathPrefixExceptions) {
         if ([inPath hasPrefix:prefix]) {
             return inPath;
