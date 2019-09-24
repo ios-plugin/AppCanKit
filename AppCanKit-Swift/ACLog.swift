@@ -28,17 +28,17 @@ private func _ACLogMessage(_ message: @autoclosure () -> String, isAsynchronous:
 }
 
 public func ACLogError(_ message: @autoclosure () -> String, isAsynchronous: Bool = false, file: StaticString = #file, function: StaticString = #function, line: UInt = #line){
-    _ACLogMessage(message, isAsynchronous: isAsynchronous, level: .error, file: file, function: function, line: line)
+    _ACLogMessage(message(), isAsynchronous: isAsynchronous, level: .error, file: file, function: function, line: line)
 }
 public func ACLogWarning(_ message: @autoclosure () -> String, isAsynchronous: Bool = true, file: StaticString = #file, function: StaticString = #function, line: UInt = #line){
-    _ACLogMessage(message, isAsynchronous: isAsynchronous, level: .warning, file: file, function: function, line: line)
+    _ACLogMessage(message(), isAsynchronous: isAsynchronous, level: .warning, file: file, function: function, line: line)
 }
 public func ACLogInfo(_ message: @autoclosure () -> String, isAsynchronous: Bool = true, file: StaticString = #file, function: StaticString = #function, line: UInt = #line){
-    _ACLogMessage(message, isAsynchronous: isAsynchronous, level: .info, file: file, function: function, line: line)
+    _ACLogMessage(message(), isAsynchronous: isAsynchronous, level: .info, file: file, function: function, line: line)
 }
 public func ACLogDebug(_ message: @autoclosure () -> String, isAsynchronous: Bool = true, file: StaticString = #file, function: StaticString = #function, line: UInt = #line){
-    _ACLogMessage(message, isAsynchronous: isAsynchronous, level: .debug, file: file, function: function, line: line)
+    _ACLogMessage(message(), isAsynchronous: isAsynchronous, level: .debug, file: file, function: function, line: line)
 }
 public func ACLogVerbose(_ message: @autoclosure () -> String, isAsynchronous: Bool = true, file: StaticString = #file, function: StaticString = #function, line: UInt = #line){
-    _ACLogMessage(message, isAsynchronous: isAsynchronous, level: .verbose, file: file, function: function, line: line)
+    _ACLogMessage(message(), isAsynchronous: isAsynchronous, level: .verbose, file: file, function: function, line: line)
 }

@@ -61,10 +61,19 @@
 }
 
 
-
-
-
 - (void)executeWithArguments:(NSArray *)args completionHandler:(void (^)(JSValue *returnValue))completionHandler{
+    // iOS13适配：增加保证在主线程的逻辑
+    if([NSThread isMainThread]){
+        [self executeOnCurrentThreadWithArguments:args completionHandler:completionHandler];
+    } else {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self executeOnCurrentThreadWithArguments:args completionHandler:completionHandler];
+        });
+    }
+}
+
+
+- (void)executeOnCurrentThreadWithArguments:(NSArray *)args completionHandler:(void (^)(JSValue *returnValue))completionHandler{
     JSValue *value = self.managedFunction.value;
     if (!value) {
         value = self.ctx[@"_ACJSFunctionRefIntenal"][self.identifier];
@@ -83,9 +92,26 @@
 }
 
 - (void)dealloc{
-    self.ctx[@"_ACJSFunctionRefIntenal"][self.identifier] = nil;
-    [self.machine removeManagedReference:self.managedFunction withOwner:self];
-    ACLogVerbose(@"js funcRef %@ dealloc",self);
+    ACLogVerbose(@"AppCan===>ACJSFunctionRef===> dealloc, isMainThread? %d", [NSThread isMainThread]);
+    // iOS13适配：增加保证在主线程的逻辑
+    if([NSThread isMainThread]){
+        self.ctx[@"_ACJSFunctionRefIntenal"][self.identifier] = nil;
+        [self.machine removeManagedReference:_managedFunction withOwner:self];
+        self.machine = nil;
+        _managedFunction = nil;
+        self.ctx = nil;
+        ACLogVerbose(@"js funcRef %@ dealloc",self);
+    } else {
+        // 这里之所以使用sync而不是async，是因为dealloc函数执行完毕后，self对象就会被销毁了，此处必须是同步方法。如果异步，则其中某些访问self的操作会出现异常情况（或者无法起到预期的作用）
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            self.ctx[@"_ACJSFunctionRefIntenal"][self.identifier] = nil;
+            [self.machine removeManagedReference:_managedFunction withOwner:self];
+            self.machine = nil;
+            _managedFunction = nil;
+            self.ctx = nil;
+            ACLogVerbose(@"js funcRef %@ dealloc",self);
+        });
+    }
 }
 
 
