@@ -79,7 +79,20 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)evaluateScript:(NSString *)jsScript;
 
+/**
+ *  在网页中执行一段JS脚本
+ *
+ *  @param jsScript 要执行的JS脚本
+*/
+- (void)ac_evaluateJavaScript:(NSString *)javaScriptString;
 
+/**
+ *  在网页中执行一段JS脚本
+ *
+ *  @param jsScript 要执行的JS脚本
+ *  @param completionHandler 执行后的结果处理
+*/
+- (void)ac_evaluateJavaScript:(NSString *)javaScriptString completionHandler:(void (^ _Nullable)(_Nullable id, NSError * _Nullable error))completionHandler;
 
 
 /**

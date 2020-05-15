@@ -22,7 +22,7 @@
  */
 
 #import "ACJSFunctionRef.h"
-#import "ACJSValueSupport.h"
+//#import "ACJSValueSupport.h"
 #import "ACJSFunctionRefInternal.h"
 #import "ACLog.h"
 
@@ -31,31 +31,32 @@
 @implementation ACJSFunctionRef
 
 + (instancetype)functionRefFromJSValue:(JSValue *)value{
-    if (!value || value.ac_type != ACJSValueTypeFunction) {
-        return nil;
-    }
+    // AppCanWKTODO
+//    if (!value || value.ac_type != ACJSValueTypeFunction) {
+//        return nil;
+//    }
     
     
     ACJSFunctionRef *funcRef = [[self alloc]init];
-    if (funcRef) {
-        JSContext *ctx = value.context;
-        
-
-        funcRef.ctx = ctx;
-        funcRef.identifier = [NSUUID UUID].UUIDString;
-        funcRef.managedFunction = [[JSManagedValue alloc]initWithValue:value];
-        funcRef.machine = value.context.virtualMachine;
-        [funcRef.machine addManagedReference:funcRef.managedFunction withOwner:self];
-        
-        JSValue *intenal = ctx[@"_ACJSFunctionRefIntenal"];
-        if ([intenal isUndefined]) {
-            intenal = [JSValue valueWithObject:@{} inContext:ctx];
-            ctx[@"_ACJSFunctionRefIntenal"] = intenal;
-        }
-        
-        intenal[funcRef.identifier] = value;
-        ACLogVerbose(@"js funcRef %@ init",funcRef);
-    }
+//    if (funcRef) {
+//        JSContext *ctx = value.context;
+//
+//
+//        funcRef.ctx = ctx;
+//        funcRef.identifier = [NSUUID UUID].UUIDString;
+//        funcRef.managedFunction = [[JSManagedValue alloc]initWithValue:value];
+//        funcRef.machine = value.context.virtualMachine;
+//        [funcRef.machine addManagedReference:funcRef.managedFunction withOwner:self];
+//
+//        JSValue *intenal = ctx[@"_ACJSFunctionRefIntenal"];
+//        if ([intenal isUndefined]) {
+//            intenal = [JSValue valueWithObject:@{} inContext:ctx];
+//            ctx[@"_ACJSFunctionRefIntenal"] = intenal;
+//        }
+//
+//        intenal[funcRef.identifier] = value;
+//        ACLogVerbose(@"js funcRef %@ init",funcRef);
+//    }
     return funcRef;
 
 }
@@ -74,17 +75,18 @@
 
 
 - (void)executeOnCurrentThreadWithArguments:(NSArray *)args completionHandler:(void (^)(JSValue *returnValue))completionHandler{
-    JSValue *value = self.managedFunction.value;
-    if (!value) {
-        value = self.ctx[@"_ACJSFunctionRefIntenal"][self.identifier];
-    }
-    if (value) {
-        [value ac_callWithArguments:args completionHandler:completionHandler];
-    }else{
-        if (completionHandler) {
-            completionHandler(nil);
-        }
-    }
+    // AppCanWKTODO
+//    JSValue *value = self.managedFunction.value;
+//    if (!value) {
+//        value = self.ctx[@"_ACJSFunctionRefIntenal"][self.identifier];
+//    }
+//    if (value) {
+//        [value ac_callWithArguments:args completionHandler:completionHandler];
+//    }else{
+//        if (completionHandler) {
+//            completionHandler(nil);
+//        }
+//    }
 }
 
 - (void)executeWithArguments:(NSArray *)args{
@@ -92,26 +94,27 @@
 }
 
 - (void)dealloc{
+    // AppCanWKTODO
     ACLogVerbose(@"AppCan===>ACJSFunctionRef===> dealloc, isMainThread? %d", [NSThread isMainThread]);
     // iOS13适配：增加保证在主线程的逻辑
-    if([NSThread isMainThread]){
-        self.ctx[@"_ACJSFunctionRefIntenal"][self.identifier] = nil;
-        [self.machine removeManagedReference:_managedFunction withOwner:self];
-        self.machine = nil;
-        _managedFunction = nil;
-        self.ctx = nil;
-        ACLogVerbose(@"js funcRef %@ dealloc",self);
-    } else {
-        // 这里之所以使用sync而不是async，是因为dealloc函数执行完毕后，self对象就会被销毁了，此处必须是同步方法。如果异步，则其中某些访问self的操作会出现异常情况（或者无法起到预期的作用）
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            self.ctx[@"_ACJSFunctionRefIntenal"][self.identifier] = nil;
-            [self.machine removeManagedReference:_managedFunction withOwner:self];
-            self.machine = nil;
-            _managedFunction = nil;
-            self.ctx = nil;
-            ACLogVerbose(@"js funcRef %@ dealloc",self);
-        });
-    }
+//    if([NSThread isMainThread]){
+//        self.ctx[@"_ACJSFunctionRefIntenal"][self.identifier] = nil;
+//        [self.machine removeManagedReference:_managedFunction withOwner:self];
+//        self.machine = nil;
+//        _managedFunction = nil;
+//        self.ctx = nil;
+//        ACLogVerbose(@"js funcRef %@ dealloc",self);
+//    } else {
+//        // 这里之所以使用sync而不是async，是因为dealloc函数执行完毕后，self对象就会被销毁了，此处必须是同步方法。如果异步，则其中某些访问self的操作会出现异常情况（或者无法起到预期的作用）
+//        dispatch_sync(dispatch_get_main_queue(), ^{
+//            self.ctx[@"_ACJSFunctionRefIntenal"][self.identifier] = nil;
+//            [self.machine removeManagedReference:_managedFunction withOwner:self];
+//            self.machine = nil;
+//            _managedFunction = nil;
+//            self.ctx = nil;
+//            ACLogVerbose(@"js funcRef %@ dealloc",self);
+//        });
+//    }
 }
 
 

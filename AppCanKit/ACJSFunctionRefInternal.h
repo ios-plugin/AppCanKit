@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong)JSManagedValue *managedFunction;
 @property (nonatomic,strong)NSString *identifier;
 @property (nonatomic,weak)JSVirtualMachine *machine;
-@property (nonatomic,weak)JSContext *ctx;
+//@property (nonatomic,weak)JSContext *ctx;
 
 /**
  *  根据JSValue获得一个ACJSFunctionRef

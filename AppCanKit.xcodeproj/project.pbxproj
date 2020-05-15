@@ -63,8 +63,6 @@
 		42DB71D21D59A38C00E61C19 /* EUExBaseDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DB71D01D59A38C00E61C19 /* EUExBaseDefine.m */; };
 		42ED03F81CFC34E1009134BE /* ACJSFunctionRef.h in Headers */ = {isa = PBXBuildFile; fileRef = 42ED03F61CFC34E1009134BE /* ACJSFunctionRef.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42ED03F91CFC34E1009134BE /* ACJSFunctionRef.m in Sources */ = {isa = PBXBuildFile; fileRef = 42ED03F71CFC34E1009134BE /* ACJSFunctionRef.m */; };
-		42ED03FC1CFC3783009134BE /* ACJSValueSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = 42ED03FA1CFC3783009134BE /* ACJSValueSupport.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		42ED03FD1CFC3783009134BE /* ACJSValueSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 42ED03FB1CFC3783009134BE /* ACJSValueSupport.m */; };
 		42ED03FF1CFC3D9E009134BE /* ACJSFunctionRefInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 42ED03FE1CFC3D9E009134BE /* ACJSFunctionRefInternal.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		42FAC5B91DCB199D0072DFCF /* AppCanWindowObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 42FAC5B81DCB199D0072DFCF /* AppCanWindowObject.h */; settings = {ATTRIBUTES = (Private, ); }; };
 /* End PBXBuildFile section */
@@ -175,8 +173,6 @@
 		42DB71D01D59A38C00E61C19 /* EUExBaseDefine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EUExBaseDefine.m; sourceTree = "<group>"; };
 		42ED03F61CFC34E1009134BE /* ACJSFunctionRef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACJSFunctionRef.h; sourceTree = "<group>"; };
 		42ED03F71CFC34E1009134BE /* ACJSFunctionRef.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACJSFunctionRef.m; sourceTree = "<group>"; };
-		42ED03FA1CFC3783009134BE /* ACJSValueSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ACJSValueSupport.h; path = AppCanKit/ACJSValueSupport.h; sourceTree = "<group>"; };
-		42ED03FB1CFC3783009134BE /* ACJSValueSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ACJSValueSupport.m; path = AppCanKit/ACJSValueSupport.m; sourceTree = "<group>"; };
 		42ED03FE1CFC3D9E009134BE /* ACJSFunctionRefInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ACJSFunctionRefInternal.h; path = AppCanKit/ACJSFunctionRefInternal.h; sourceTree = "<group>"; };
 		42FAC5B81DCB199D0072DFCF /* AppCanWindowObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppCanWindowObject.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -332,8 +328,6 @@
 				42961AD81D0EAD4500005263 /* ACLogger.m */,
 				421AE57A1CF58347001A5053 /* ACEXTRuntimeExtensions.h */,
 				421AE57B1CF58347001A5053 /* ACEXTRuntimeExtensions.m */,
-				42ED03FA1CFC3783009134BE /* ACJSValueSupport.h */,
-				42ED03FB1CFC3783009134BE /* ACJSValueSupport.m */,
 				42ED03FE1CFC3D9E009134BE /* ACJSFunctionRefInternal.h */,
 				42DB71AE1D54887700E61C19 /* ACInvoker.h */,
 				42DB71AF1D54887700E61C19 /* ACInvoker.m */,
@@ -369,7 +363,6 @@
 				42961AA31D0E4FBA00005263 /* ACLog.h in Headers */,
 				426DF1A81CFD7DC600F4C53E /* ACAvailability.h in Headers */,
 				42DB71B01D54887700E61C19 /* ACInvoker.h in Headers */,
-				42ED03FC1CFC3783009134BE /* ACJSValueSupport.h in Headers */,
 				421AE5851CF5906E001A5053 /* ACEXTScope.h in Headers */,
 				421AE57C1CF58347001A5053 /* ACEXTRuntimeExtensions.h in Headers */,
 				42A9F6411CFD39D9002710FC /* AppCanGlobalObjectGetter.h in Headers */,
@@ -577,7 +570,6 @@
 				421AE58B1CF59DCC001A5053 /* ACArguments.m in Sources */,
 				421AE5951CF5AE68001A5053 /* ACJSON.m in Sources */,
 				420350C51DE40FA90065A8E6 /* ACGCDThrottle.m in Sources */,
-				42ED03FD1CFC3783009134BE /* ACJSValueSupport.m in Sources */,
 				42DB71D21D59A38C00E61C19 /* EUExBaseDefine.m in Sources */,
 				421AE57D1CF58347001A5053 /* ACEXTRuntimeExtensions.m in Sources */,
 				42ED03F91CFC34E1009134BE /* ACJSFunctionRef.m in Sources */,
