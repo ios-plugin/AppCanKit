@@ -22,47 +22,27 @@
  */
 
 #import "ACJSFunctionRef.h"
-//#import "ACJSValueSupport.h"
+#import "ACJSContext.h"
 #import "ACJSFunctionRefInternal.h"
 #import "ACLog.h"
 
-
-
 @implementation ACJSFunctionRef
 
-+ (instancetype)functionRefFromJSValue:(JSValue *)value{
++ (instancetype)functionRefWithACJSContext:(id<ACJSContext>)context fromFunctionId:(NSString *)functionId{
     // AppCanWKTODO
-//    if (!value || value.ac_type != ACJSValueTypeFunction) {
-//        return nil;
-//    }
-    
-    
     ACJSFunctionRef *funcRef = [[self alloc]init];
-//    if (funcRef) {
-//        JSContext *ctx = value.context;
-//
-//
-//        funcRef.ctx = ctx;
-//        funcRef.identifier = [NSUUID UUID].UUIDString;
-//        funcRef.managedFunction = [[JSManagedValue alloc]initWithValue:value];
-//        funcRef.machine = value.context.virtualMachine;
-//        [funcRef.machine addManagedReference:funcRef.managedFunction withOwner:self];
-//
-//        JSValue *intenal = ctx[@"_ACJSFunctionRefIntenal"];
-//        if ([intenal isUndefined]) {
-//            intenal = [JSValue valueWithObject:@{} inContext:ctx];
-//            ctx[@"_ACJSFunctionRefIntenal"] = intenal;
-//        }
-//
-//        intenal[funcRef.identifier] = value;
-//        ACLogVerbose(@"js funcRef %@ init",funcRef);
-//    }
+    if (funcRef) {
+        funcRef.ctx = context;
+        funcRef.functionId = functionId;
+        ACLogVerbose(@"js funcRef %@ init",funcRef);
+    }
     return funcRef;
-
 }
 
 
 - (void)executeWithArguments:(NSArray *)args completionHandler:(void (^)(JSValue *returnValue))completionHandler{
+    // AppCanWKTODO
+    // JSValue相关的方法需要标记为作废，或者直接在h头文件中移除，迫使插件开发中逐渐改变回调方法，但是m文件中不要移除，保证引擎向前兼容老插件
     // iOS13适配：增加保证在主线程的逻辑
     if([NSThread isMainThread]){
         [self executeOnCurrentThreadWithArguments:args completionHandler:completionHandler];
@@ -76,17 +56,17 @@
 
 - (void)executeOnCurrentThreadWithArguments:(NSArray *)args completionHandler:(void (^)(JSValue *returnValue))completionHandler{
     // AppCanWKTODO
-//    JSValue *value = self.managedFunction.value;
-//    if (!value) {
-//        value = self.ctx[@"_ACJSFunctionRefIntenal"][self.identifier];
-//    }
-//    if (value) {
-//        [value ac_callWithArguments:args completionHandler:completionHandler];
-//    }else{
-//        if (completionHandler) {
-//            completionHandler(nil);
-//        }
-//    }
+    NSString *flag = @"1";
+    NSMutableString *callbackJsStr = [NSMutableString stringWithCapacity:0];
+    [callbackJsStr appendString:@"javascript:uexCallback.callback("];
+    [callbackJsStr appendString:_functionId];
+    [callbackJsStr appendString:@","];
+    [callbackJsStr appendString:flag];
+    for (int i = 0; i < args.count; i++) {
+        [callbackJsStr appendString:@","];
+        
+    }
+//    _ctx ac_evaluateJavaScript:<#(NSString *)#>
 }
 
 - (void)executeWithArguments:(NSArray *)args{

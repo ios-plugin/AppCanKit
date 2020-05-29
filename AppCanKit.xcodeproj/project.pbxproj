@@ -65,6 +65,7 @@
 		42ED03F91CFC34E1009134BE /* ACJSFunctionRef.m in Sources */ = {isa = PBXBuildFile; fileRef = 42ED03F71CFC34E1009134BE /* ACJSFunctionRef.m */; };
 		42ED03FF1CFC3D9E009134BE /* ACJSFunctionRefInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 42ED03FE1CFC3D9E009134BE /* ACJSFunctionRefInternal.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		42FAC5B91DCB199D0072DFCF /* AppCanWindowObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 42FAC5B81DCB199D0072DFCF /* AppCanWindowObject.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		69F5F35924810B9A0006FE38 /* ACJSContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 69F5F35824810B9A0006FE38 /* ACJSContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -175,6 +176,7 @@
 		42ED03F71CFC34E1009134BE /* ACJSFunctionRef.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACJSFunctionRef.m; sourceTree = "<group>"; };
 		42ED03FE1CFC3D9E009134BE /* ACJSFunctionRefInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ACJSFunctionRefInternal.h; path = AppCanKit/ACJSFunctionRefInternal.h; sourceTree = "<group>"; };
 		42FAC5B81DCB199D0072DFCF /* AppCanWindowObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppCanWindowObject.h; sourceTree = "<group>"; };
+		69F5F35824810B9A0006FE38 /* ACJSContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACJSContext.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -274,6 +276,7 @@
 		421AE5251CF57181001A5053 /* AppCanKit */ = {
 			isa = PBXGroup;
 			children = (
+				69F5F35824810B9A0006FE38 /* ACJSContext.h */,
 				421AE57E1CF58393001A5053 /* ACNil.h */,
 				421AE57F1CF58393001A5053 /* ACNil.m */,
 				421AE5881CF59DCC001A5053 /* ACArguments.h */,
@@ -363,6 +366,7 @@
 				42961AA31D0E4FBA00005263 /* ACLog.h in Headers */,
 				426DF1A81CFD7DC600F4C53E /* ACAvailability.h in Headers */,
 				42DB71B01D54887700E61C19 /* ACInvoker.h in Headers */,
+				69F5F35924810B9A0006FE38 /* ACJSContext.h in Headers */,
 				421AE5851CF5906E001A5053 /* ACEXTScope.h in Headers */,
 				421AE57C1CF58347001A5053 /* ACEXTRuntimeExtensions.h in Headers */,
 				42A9F6411CFD39D9002710FC /* AppCanGlobalObjectGetter.h in Headers */,

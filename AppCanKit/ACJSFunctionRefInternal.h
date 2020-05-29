@@ -21,25 +21,21 @@
  *
  */
 
-
-@class JSManagedValue;
-@class JSVirtualMachine;
+#import <AppCanKit/ACJSContext.h>
 
 NS_ASSUME_NONNULL_BEGIN
 @interface ACJSFunctionRef()
 
-@property (nonatomic,strong)JSManagedValue *managedFunction;
-@property (nonatomic,strong)NSString *identifier;
-@property (nonatomic,weak)JSVirtualMachine *machine;
-//@property (nonatomic,weak)JSContext *ctx;
+@property (nonatomic, weak)id<ACJSContext> ctx;
+@property(nonatomic, strong) NSString *functionId;
 
 /**
- *  根据JSValue获得一个ACJSFunctionRef
- *  @brief 在此对象被释放前,只要JS上下文没有被销毁,此对象会保证其对应的JS函数不被GC机制回收
- *
- *  @param value 必须是一个JS的function。不是function时此方法会返回nil
+ 通过ID记录来实例化一个JS方法，用于执行AppCanJS回调
+ 
+ @param functionId callback function id
+ @return 抽象的JS方法实例
  */
-+ (nullable instancetype)functionRefFromJSValue:(JSValue *)value;
++ (instancetype)functionRefWithACJSContext:(id<ACJSContext>)context fromFunctionId:(NSString *)functionId;
 
 @end
 
