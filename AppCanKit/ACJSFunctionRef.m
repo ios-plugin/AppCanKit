@@ -25,6 +25,7 @@
 #import "ACJSContext.h"
 #import "ACJSFunctionRefInternal.h"
 #import "ACLog.h"
+#import "ACJSON.h"
 
 @implementation ACJSFunctionRef
 
@@ -39,10 +40,13 @@
     return funcRef;
 }
 
-
-- (void)executeWithArguments:(NSArray *)args completionHandler:(void (^)(JSValue *returnValue))completionHandler{
+- (void)executeWithArguments:(NSArray *)args completionHandler:(void (^)(JSValue *returnValue))completionHandler DEPRECATED_MSG_ATTRIBUTE("AppCanKit: JavascriptCore 已经不再使用, 本方法过时，回调请使用 executeWithArguments:withCompletionHandler: 代替"){
     // AppCanWKTODO
     // JSValue相关的方法需要标记为作废，或者直接在h头文件中移除，迫使插件开发中逐渐改变回调方法，但是m文件中不要移除，保证引擎向前兼容老插件
+    [self executeWithArguments:args];
+}
+
+- (void)executeWithArguments:(NSArray *)args withCompletionHandler:(nullable void (^)(_Nullable id, NSError * _Nullable error))completionHandler{
     // iOS13适配：增加保证在主线程的逻辑
     if([NSThread isMainThread]){
         [self executeOnCurrentThreadWithArguments:args completionHandler:completionHandler];
@@ -53,48 +57,71 @@
     }
 }
 
-
-- (void)executeOnCurrentThreadWithArguments:(NSArray *)args completionHandler:(void (^)(JSValue *returnValue))completionHandler{
+- (void)executeOnCurrentThreadWithArguments:(NSArray *)args completionHandler:(nullable void (^)(_Nullable id, NSError * _Nullable error))completionHandler{
     // AppCanWKTODO
-    NSString *flag = @"1";
+    NSString *flag = @"0"; // 本callback是否还会有下一次回调，0没有，1有。
     NSMutableString *callbackJsStr = [NSMutableString stringWithCapacity:0];
-    [callbackJsStr appendString:@"javascript:uexCallback.callback("];
+    [callbackJsStr appendString:@"uexCallback.callback("];
     [callbackJsStr appendString:_functionId];
     [callbackJsStr appendString:@","];
     [callbackJsStr appendString:flag];
     for (int i = 0; i < args.count; i++) {
         [callbackJsStr appendString:@","];
-        
+        id arg = args[i];
+        if ([arg isKindOfClass:[NSString class]]) {
+            // string类型
+            [callbackJsStr appendString:@"\'"];
+            [callbackJsStr appendString:arg];
+            [callbackJsStr appendString:@"\'"];
+        }else if([arg isKindOfClass:[NSNumber class]]){
+            // NSNumber内需要进一步判断
+            if (strcmp([arg objCType], @encode(BOOL))) {
+                // boolean类型
+                NSString *argToStr = arg ? @"true" : @"false";
+                [callbackJsStr appendString:argToStr];
+            }else{
+                // number类型
+                NSString *argToStr = [NSString stringWithFormat:@"%@", arg];
+                [callbackJsStr appendString:argToStr];
+            }
+        }else{
+            // object类型
+            NSString *argToStr = [arg ac_JSONFragment];
+            [callbackJsStr appendString:argToStr];
+        }
     }
-//    _ctx ac_evaluateJavaScript:<#(NSString *)#>
+    [callbackJsStr appendString:@");"];
+    [_ctx ac_evaluateJavaScript:callbackJsStr completionHandler:completionHandler];
 }
 
 - (void)executeWithArguments:(NSArray *)args{
-    [self executeWithArguments:args completionHandler:nil];
+    [self executeWithArguments:args withCompletionHandler:nil];
 }
 
+- (void)clean{
+    NSString *cleanCbStr = [NSString stringWithFormat:@"uexCallback.clean(%@)", _functionId];
+    [self.ctx ac_evaluateJavaScript:cleanCbStr];
+}
+
+/**
+ 本实例被回收的时候，应该顺便把JS中对应的function也移除
+ */
 - (void)dealloc{
     // AppCanWKTODO
     ACLogVerbose(@"AppCan===>ACJSFunctionRef===> dealloc, isMainThread? %d", [NSThread isMainThread]);
     // iOS13适配：增加保证在主线程的逻辑
-//    if([NSThread isMainThread]){
-//        self.ctx[@"_ACJSFunctionRefIntenal"][self.identifier] = nil;
-//        [self.machine removeManagedReference:_managedFunction withOwner:self];
-//        self.machine = nil;
-//        _managedFunction = nil;
-//        self.ctx = nil;
-//        ACLogVerbose(@"js funcRef %@ dealloc",self);
-//    } else {
-//        // 这里之所以使用sync而不是async，是因为dealloc函数执行完毕后，self对象就会被销毁了，此处必须是同步方法。如果异步，则其中某些访问self的操作会出现异常情况（或者无法起到预期的作用）
-//        dispatch_sync(dispatch_get_main_queue(), ^{
-//            self.ctx[@"_ACJSFunctionRefIntenal"][self.identifier] = nil;
-//            [self.machine removeManagedReference:_managedFunction withOwner:self];
-//            self.machine = nil;
-//            _managedFunction = nil;
-//            self.ctx = nil;
-//            ACLogVerbose(@"js funcRef %@ dealloc",self);
-//        });
-//    }
+    if([NSThread isMainThread]){
+        [self clean];
+        self.ctx = nil;
+        ACLogVerbose(@"js funcRef %@ dealloc", self);
+    } else {
+        // 这里之所以使用sync而不是async，是因为dealloc函数执行完毕后，self对象就会被销毁了，此处必须是同步方法。如果异步，则其中某些访问self的操作会出现异常情况（或者无法起到预期的作用）
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [self clean];
+            self.ctx = nil;
+            ACLogVerbose(@"js funcRef %@ dealloc", self);
+        });
+    }
 }
 
 

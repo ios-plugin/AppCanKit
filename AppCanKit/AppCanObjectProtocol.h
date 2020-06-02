@@ -96,7 +96,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
- *  执行网页中的回调函数
+ *  执行网页中的回调函数(本方法已经弃用)
  *
  *  @param JSKeyPath  函数名
  *  @param arguments  回调的参数
@@ -104,7 +104,17 @@ NS_ASSUME_NONNULL_BEGIN
  *  @discussion 对于无返回值的JS函数,returnValue为一个代表<undefined>的JSValue,而不是nil
  *
  */
-- (void)callbackWithFunctionKeyPath:(NSString *)JSKeyPath arguments:(nullable NSArray *)arguments completion:(nullable void (^)(JSValue  * _Nullable returnValue))completion;
+- (void)callbackWithFunctionKeyPath:(NSString *)JSKeyPath arguments:(nullable NSArray *)arguments completion:(nullable void (^)(JSValue  * _Nullable returnValue))completion DEPRECATED_MSG_ATTRIBUTE("AppCanKit: JavascriptCore 已经不再使用, 本方法过时，回调请使用 callbackWithFunctionKeyPath:arguments:withCompletionHandler: 代替");
+
+/**
+ *  执行网页中的回调函数
+ *
+ *  @param JSKeyPath  函数名
+ *  @param arguments  回调的参数
+ *  @param completion JS端的函数执行完毕时,会触发此block.此block有一个NSString类型的参数，是JS端函数的返回值.
+ *
+ */
+- (void)callbackWithFunctionKeyPath:(NSString *)JSKeyPath arguments:(nullable NSArray *)arguments withCompletionHandler:(nullable void (^)(id _Nullable, NSError * _Nullable))completion;
 
 /**
  *  执行网页中的回调函数,参数同上

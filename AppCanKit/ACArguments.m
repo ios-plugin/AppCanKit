@@ -23,14 +23,14 @@
 
 #import "ACArguments.h"
 #import "ACJSON.h"
-#import <JavaScriptCore/JavaScriptCore.h>
 #import "ACJSFunctionRefInternal.h"
 
 
 NSString* _Nullable ac_stringArg(id _Nullable arg){
-    if ([arg isKindOfClass:[JSValue class]]) {
-        arg = [arg toObject];
-    }
+    // AppCanWKTODO
+//    if ([arg isKindOfClass:[JSValue class]]) {
+//        arg = [arg toObject];
+//    }
     if ([arg isKindOfClass:[NSString class]]) {
         return arg;
     }
@@ -44,9 +44,10 @@ NSString* _Nullable ac_stringArg(id _Nullable arg){
 
 
 NSNumber* _Nullable ac_numberArg(id _Nullable arg){
-    if ([arg isKindOfClass:[JSValue class]]) {
-        arg = [arg toObject];
-    }
+    // AppCanWKTODO
+//    if ([arg isKindOfClass:[JSValue class]]) {
+//        arg = [arg toObject];
+//    }
     if ([arg isKindOfClass:[NSString class]]  && [arg length] > 0) {
         return [NSDecimalNumber decimalNumberWithString:arg];
     }
@@ -57,9 +58,10 @@ NSNumber* _Nullable ac_numberArg(id _Nullable arg){
 }
 
 NSDictionary* _Nullable ac_dictionaryArg(id _Nullable arg){
-    if ([arg isKindOfClass:[JSValue class]]) {
-        arg = [arg toObject];
-    }
+    // AppCanWKTODO
+//    if ([arg isKindOfClass:[JSValue class]]) {
+//        arg = [arg toObject];
+//    }
     if ([arg isKindOfClass:[NSString class]]) {
         arg = [arg ac_JSONValue];
     }
@@ -70,9 +72,10 @@ NSDictionary* _Nullable ac_dictionaryArg(id _Nullable arg){
 }
 
 NSArray* _Nullable ac_arrayArg(id _Nullable arg){
-    if ([arg isKindOfClass:[JSValue class]]) {
-        arg = [arg toObject];
-    }
+    // AppCanWKTODO
+//    if ([arg isKindOfClass:[JSValue class]]) {
+//        arg = [arg toObject];
+//    }
     NSString *arrayStr = nil;
     if ([arg isKindOfClass:[NSString class]]) {
         arg = [arg ac_JSONValue];
@@ -96,9 +99,10 @@ ACJSFunctionRef * _Nullable ac_JSFunctionArg(id _Nullable arg){
     if ([arg isKindOfClass:[ACJSFunctionRef class]]) {
         return arg;
     }
-    if ([arg isKindOfClass:[JSValue class]]) {
-        return [ACJSFunctionRef functionRefFromJSValue:arg];
-    }
+    // AppCanWKTODO
+//    if ([arg isKindOfClass:[JSValue class]]) {
+//        return [ACJSFunctionRef functionRefWithACJSContext: fromFunctionId:<#(nonnull NSString *)#>];
+//    }
     return nil;
 }
 
