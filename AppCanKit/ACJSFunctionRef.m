@@ -59,7 +59,7 @@
 
 - (void)executeOnCurrentThreadWithArguments:(NSArray *)args completionHandler:(nullable void (^)(_Nullable id, NSError * _Nullable error))completionHandler{
     // AppCanWKTODO
-    NSString *flag = @"0"; // 本callback是否还会有下一次回调，0没有，1有。
+    NSString *flag = @"1"; // 本callback是否还会有下一次回调，0没有，1有。
     NSMutableString *callbackJsStr = [NSMutableString stringWithCapacity:0];
     [callbackJsStr appendString:@"uexCallback.callback("];
     [callbackJsStr appendString:_functionId];
