@@ -75,15 +75,16 @@
             [callbackJsStr appendString:@"\'"];
         }else if([arg isKindOfClass:[NSNumber class]]){
             // NSNumber内需要进一步判断
-            if (strcmp([arg objCType], @encode(BOOL))) {
-                // boolean类型
-                NSString *argToStr = arg ? @"true" : @"false";
-                [callbackJsStr appendString:argToStr];
-            }else{
+            // 由于BOOL类型无法准确区分，故不做区分。如果想回调true 和 false，直接用字符串类型。
+//            if (strcmp([arg objCType], @encode(BOOL))) {
+//                // boolean类型
+//                NSString *argToStr = arg ? @"true" : @"false";
+//                [callbackJsStr appendString:argToStr];
+//            }else{
                 // number类型
-                NSString *argToStr = [NSString stringWithFormat:@"%@", arg];
-                [callbackJsStr appendString:argToStr];
-            }
+            NSString *argToStr = [NSString stringWithFormat:@"%@", arg];
+            [callbackJsStr appendString:argToStr];
+//            }
         }else{
             // object类型
             NSString *argToStr = [arg ac_JSONFragment];
