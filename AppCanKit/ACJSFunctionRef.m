@@ -25,6 +25,7 @@
 #import "ACJSContext.h"
 #import "ACJSFunctionRefInternal.h"
 #import "ACLog.h"
+#import "ACNil.h"
 #import "ACJSON.h"
 
 @implementation ACJSFunctionRef
@@ -85,6 +86,8 @@
             NSString *argToStr = [NSString stringWithFormat:@"%@", arg];
             [callbackJsStr appendString:argToStr];
 //            }
+        }else if ([arg isKindOfClass:[ACNil class]]){
+            [callbackJsStr appendString:@"undefined"];
         }else{
             // object类型
             NSString *argToStr = [arg ac_JSONFragment];
