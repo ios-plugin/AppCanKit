@@ -22,7 +22,7 @@
  */
 
 #import "ACJSFunctionRef.h"
-#import "ACJSContext.h"
+#import "AppCanObjectProtocol.h"
 #import "ACJSFunctionRefInternal.h"
 #import "ACLog.h"
 #import "ACNil.h"
@@ -39,6 +39,10 @@
         ACLogVerbose(@"js funcRef %@ init",funcRef);
     }
     return funcRef;
+}
+
+- (NSString *)getJSFunctionRefId {
+    return _functionId;
 }
 
 - (void)executeWithArguments:(NSArray *)args completionHandler:(void (^)(JSValue *returnValue))completionHandler DEPRECATED_MSG_ATTRIBUTE("AppCanKit: JavascriptCore 已经不再使用, 本方法过时，回调请使用 executeWithArguments:withCompletionHandler: 代替"){
@@ -58,44 +62,15 @@
     }
 }
 
+/**
+ 执行匿名JS回调的主要方法入口，从此处跳转到引擎内核进行处理
+
+ @param args 参数
+ @param completionHandler 执行结果
+ */
 - (void)executeOnCurrentThreadWithArguments:(NSArray *)args completionHandler:(nullable void (^)(_Nullable id, NSError * _Nullable error))completionHandler{
     // AppCanWKTODO
-    NSString *flag = @"1"; // 本callback是否还会有下一次回调，0没有，1有。
-    NSMutableString *callbackJsStr = [NSMutableString stringWithCapacity:0];
-    [callbackJsStr appendString:@"uexCallback.callback("];
-    [callbackJsStr appendString:_functionId];
-    [callbackJsStr appendString:@","];
-    [callbackJsStr appendString:flag];
-    for (int i = 0; i < args.count; i++) {
-        [callbackJsStr appendString:@","];
-        id arg = args[i];
-        if ([arg isKindOfClass:[NSString class]]) {
-            // string类型
-            [callbackJsStr appendString:@"\'"];
-            [callbackJsStr appendString:arg];
-            [callbackJsStr appendString:@"\'"];
-        }else if([arg isKindOfClass:[NSNumber class]]){
-            // NSNumber内需要进一步判断
-            // 由于BOOL类型无法准确区分，故不做区分。如果想回调true 和 false，直接用字符串类型。
-//            if (strcmp([arg objCType], @encode(BOOL))) {
-//                // boolean类型
-//                NSString *argToStr = arg ? @"true" : @"false";
-//                [callbackJsStr appendString:argToStr];
-//            }else{
-                // number类型
-            NSString *argToStr = [NSString stringWithFormat:@"%@", arg];
-            [callbackJsStr appendString:argToStr];
-//            }
-        }else if ([arg isKindOfClass:[ACNil class]]){
-            [callbackJsStr appendString:@"undefined"];
-        }else{
-            // object类型
-            NSString *argToStr = [arg ac_JSONFragment];
-            [callbackJsStr appendString:argToStr];
-        }
-    }
-    [callbackJsStr appendString:@");"];
-    [_ctx ac_evaluateJavaScript:callbackJsStr completionHandler:completionHandler];
+    [self.ctx callbackWithACJSFunctionRef:self withArguments:args withCompletionHandler:completionHandler];
 }
 
 - (void)executeWithArguments:(NSArray *)args{
@@ -112,7 +87,7 @@
  */
 - (void)dealloc{
     // AppCanWKTODO
-    ACLogVerbose(@"AppCan===>ACJSFunctionRef===> dealloc, isMainThread? %d", [NSThread isMainThread]);
+    ACLogDebug(@"AppCan===>ACJSFunctionRef===> dealloc, isMainThread? %d", [NSThread isMainThread]);
     // iOS13适配：增加保证在主线程的逻辑
     if([NSThread isMainThread]){
         [self clean];

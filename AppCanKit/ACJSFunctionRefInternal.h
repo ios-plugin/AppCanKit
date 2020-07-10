@@ -21,11 +21,12 @@
  *
  */
 
-#import <AppCanKit/ACJSContext.h>
+#import <AppCanKit/AppCanObjectProtocol.h>
 
 NS_ASSUME_NONNULL_BEGIN
 @interface ACJSFunctionRef()
 
+// 解释：由于是WKWebView的实例，为了避免引起不必要的内存泄露，JS方法执行逻辑中持有定义为weak。当被回收时，此处可能会是nil，那也是正常情况，就应当无法执行了。这取决于强引用WKWebView的地方何时销毁它。 by yipeng
 @property (nonatomic, weak)id<ACJSContext> ctx;
 @property(nonatomic, strong) NSString *functionId;
 
