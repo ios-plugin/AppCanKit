@@ -22,6 +22,9 @@
  */
  
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#import "ACJSFunctionRef.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @class JSValue;
@@ -48,7 +51,53 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
-@protocol AppCanWebViewEngineObject <NSObject>
+
+@protocol ACJSContext <NSObject>
+
+/**
+ *  在网页中执行一段JS脚本
+ *
+ *  @param jsScript 要执行的JS脚本
+ */
+- (void)ac_evaluateJavaScript:(NSString *)javaScriptString;
+
+/**
+ *  在网页中执行一段JS脚本
+ *
+ *  @param jsScript 要执行的JS脚本
+ *  @param completionHandler 执行后的结果处理
+ */
+- (void)ac_evaluateJavaScript:(NSString *)javaScriptString completionHandler:(void (^ _Nullable)(_Nullable id, NSError * _Nullable error))completionHandler;
+
+/**
+ *  执行网页中的回调函数
+ *
+ *  @param JSKeyPath  函数名
+ *  @param arguments  回调的参数
+ *  @param completion JS端的函数执行完毕时,会触发此block.此block有一个NSString类型的参数，是JS端函数的返回值.
+ *
+ */
+- (void)callbackWithFunctionKeyPath:(NSString *)JSKeyPath arguments:(nullable NSArray *)arguments withCompletionHandler:(nullable void (^)(id _Nullable, NSError * _Nullable))completion;
+
+/**
+ *  执行网页中的回调函数,参数同上
+ *  @note 不需要返回值时,可使用本方法
+ */
+- (void)callbackWithFunctionKeyPath:(NSString *)JSKeyPath arguments:(nullable NSArray *)arguments;
+
+/**
+ *  执行插件与JS交互的匿名function，提供给插件的ACJSFunctionRef使用
+ *
+ *  @param functionRef ACJSFunctionRef实例，对应插件接收JS过来的匿名回调function
+ *  @param args 参数数组
+ *  @param completion JS端的函数执行完毕时,会触发此block.此block有一个NSString类型的参数，是JS端函数的返回值.
+ *
+ */
+- (void)callbackWithACJSFunctionRef:(ACJSFunctionRef *)functionRef withArguments:args withCompletionHandler:(nullable void (^)(id _Nullable, NSError * _Nullable))completion;
+
+@end
+
+@protocol AppCanWebViewEngineObject <ACJSContext>
 /**
  *  网页View,添加到此view上的subView会固定在屏幕上,不会跟随网页滑动
  */
@@ -80,10 +129,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)evaluateScript:(NSString *)jsScript;
 
 
-
-
 /**
- *  执行网页中的回调函数
+ *  执行网页中的回调函数(本方法已经弃用)
  *
  *  @param JSKeyPath  函数名
  *  @param arguments  回调的参数
@@ -91,14 +138,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  @discussion 对于无返回值的JS函数,returnValue为一个代表<undefined>的JSValue,而不是nil
  *
  */
-- (void)callbackWithFunctionKeyPath:(NSString *)JSKeyPath arguments:(nullable NSArray *)arguments completion:(nullable void (^)(JSValue  * _Nullable returnValue))completion;
-
-/**
- *  执行网页中的回调函数,参数同上
- *  @note 不需要返回值时,可使用本方法
- */
-- (void)callbackWithFunctionKeyPath:(NSString *)JSKeyPath arguments:(nullable NSArray *)arguments;
-
+- (void)callbackWithFunctionKeyPath:(NSString *)JSKeyPath arguments:(nullable NSArray *)arguments completion:(nullable void (^)(JSValue  * _Nullable returnValue))completion DEPRECATED_MSG_ATTRIBUTE("AppCanKit: JavascriptCore 已经不再使用, 本方法过时，回调请使用 callbackWithFunctionKeyPath:arguments:withCompletionHandler: 代替");
 
 @end
 

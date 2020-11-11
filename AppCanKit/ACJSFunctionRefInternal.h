@@ -21,25 +21,22 @@
  *
  */
 
-
-@class JSManagedValue;
-@class JSVirtualMachine;
+#import <AppCanKit/AppCanObjectProtocol.h>
 
 NS_ASSUME_NONNULL_BEGIN
 @interface ACJSFunctionRef()
 
-@property (nonatomic,strong)JSManagedValue *managedFunction;
-@property (nonatomic,strong)NSString *identifier;
-@property (nonatomic,weak)JSVirtualMachine *machine;
-@property (nonatomic,weak)JSContext *ctx;
+// 解释：由于是WKWebView的实例，为了避免引起不必要的内存泄露，JS方法执行逻辑中持有定义为weak。当被回收时，此处可能会是nil，那也是正常情况，就应当无法执行了。这取决于强引用WKWebView的地方何时销毁它。 by yipeng
+@property (nonatomic, weak)id<ACJSContext> ctx;
+@property(nonatomic, strong) NSString *functionId;
 
 /**
- *  根据JSValue获得一个ACJSFunctionRef
- *  @brief 在此对象被释放前,只要JS上下文没有被销毁,此对象会保证其对应的JS函数不被GC机制回收
- *
- *  @param value 必须是一个JS的function。不是function时此方法会返回nil
+ 通过ID记录来实例化一个JS方法，用于执行AppCanJS回调
+ 
+ @param functionId callback function id
+ @return 抽象的JS方法实例
  */
-+ (nullable instancetype)functionRefFromJSValue:(JSValue *)value;
++ (instancetype)functionRefWithACJSContext:(id<ACJSContext>)context fromFunctionId:(NSString *)functionId;
 
 @end
 

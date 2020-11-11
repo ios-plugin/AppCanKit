@@ -39,16 +39,28 @@ NS_ASSUME_NONNULL_BEGIN
 NS_SWIFT_UNAVAILABLE("请使用AppCanSwift中的JSFunctionRef")
 @interface ACJSFunctionRef : NSObject
 
+/**
+ 获取前端传递给插件的这个匿名回调function的id
+ */
+- (NSString *)getJSFunctionRefId;
 
 /**
- *  执行JSFunction
+ *  执行JSFunction(本方法已经弃用，请使用executeWithArguments:withCompletionHandler:)
  *
  *  @param args 执行的参数,每一个参数都必须能够被转换成JSValue 详见https://developer.apple.com/library/ios/documentation/JavaScriptCore/Reference/JSValue_Ref/
  *  @param completionHandler JS端的函数执行完毕时,会触发此block,此block有一个JSValue类型的参数，是JS端函数的返回值
  *
  */
-- (void)executeWithArguments:(nullable NSArray *)args completionHandler:(nullable void (^)(JSValue * _Nullable returnValue))completionHandler;
+- (void)executeWithArguments:(nullable NSArray *)args completionHandler:(nullable void (^)(JSValue * _Nullable returnValue))completionHandler DEPRECATED_MSG_ATTRIBUTE("AppCanKit: JavascriptCore 已经不再使用, 本方法过时，回调请使用 executeWithArguments:withCompletionHandler: 代替");
 
+/**
+ *  执行JSFunction
+ *
+ *  @param args 执行的参数
+ *  @param completionHandler JS端的函数执行完毕时,会触发此block,此block有一个NSString类型的参数，是JS端函数的返回值
+ *
+ */
+- (void)executeWithArguments:(NSArray *)args withCompletionHandler:(nullable void (^)(_Nullable id, NSError * _Nullable error))completionHandler;
 
 /**
  *  执行JSFunction,参数同上
