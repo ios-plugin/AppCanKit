@@ -348,13 +348,13 @@ Class *ac_copyClassList (unsigned *count) {
             if (keep)
                 keep &= class_respondsToSelector(class, @selector(methodSignatureForSelector:));
 
-            
-            if (keep) {
-                //20160509 fix error log by CeriNo
-                if (class_respondsToSelector(class, @selector(isProxy)) && class != NSClassFromString(@"CLTilesManagerClient") && class != NSClassFromString(@"SCRCException")){
-                    keep = ![class isProxy];
-                }
-            }
+            // 移除SCRCException 相关，解决 AppStore 过审问题
+//            if (keep) {
+//                //20160509 fix error log by CeriNo
+//                if (class_respondsToSelector(class, @selector(isProxy)) && class != NSClassFromString(@"CLTilesManagerClient") && class != NSClassFromString(@"SCRCException")){
+//                    keep = ![class isProxy];
+//                }
+//            }
 
             if (!keep) {
                 if (--classCount > i) {
