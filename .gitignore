@@ -62,3 +62,7 @@ iOSInjectionProject/
 
 
 
+
+# Swift编译生成的依赖与诊断中间文件
+/AppCanKitSwift.d
+/AppCanKitSwift.dia
