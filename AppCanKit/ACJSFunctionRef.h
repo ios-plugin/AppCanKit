@@ -33,10 +33,11 @@
  *  AppCan JavaScript Function Reference
  *  此对象对应着一个对JS函数的引用
  *  在此对象被释放前,只要JS上下文没有被销毁,此对象会保证其对应的JS函数不被GC机制回收
+ *  Swift的WK插件也直接使用本类型，复用引擎的异步执行与引用释放逻辑。
+ *  AppCanKitSwift通过PluginArgument取得本引用，不再提供旧JavaScriptCore封装。
  */
 
 NS_ASSUME_NONNULL_BEGIN
-NS_SWIFT_UNAVAILABLE("请使用AppCanSwift中的JSFunctionRef")
 @interface ACJSFunctionRef : NSObject
 
 /**

@@ -26,7 +26,6 @@
 #import "ACLog.h"
 #import "ACJSON.h"
 #import <UIKit/UIKit.h>
-#import <JavaScriptCore/JavaScriptCore.h>
 
 
 
@@ -421,9 +420,6 @@ typedef NS_ENUM(NSInteger, ACMethodArgumentType) {
         }];
         [desc appendString:@"}"];
         return desc;
-    }
-    if ([self isKindOfClass:[JSValue class]]) {
-        return [[(JSValue *)self toArray] ac_description];
     }
     
     return self.debugDescription;

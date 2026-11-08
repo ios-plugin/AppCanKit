@@ -179,7 +179,7 @@ APPCAN_EXPORT_AS_SHORT(ACJSFunctionRef* _Nullable JSFunctionArg(id _Nullable arg
 
 
 
-NS_SWIFT_UNAVAILABLE("请用AppCanSwift中的JSArgument")
+NS_SWIFT_UNAVAILABLE("请使用AppCanKitSwift中的PluginArgument或公开的ac_xxxArg函数")
 NS_ASSUME_NONNULL_BEGIN
 @interface ACArgumentsHelper : NSObject
 + (instancetype)helper;

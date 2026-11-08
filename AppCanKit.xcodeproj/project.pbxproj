@@ -11,11 +11,7 @@
 		420350C51DE40FA90065A8E6 /* ACGCDThrottle.m in Sources */ = {isa = PBXBuildFile; fileRef = 420350C31DE40FA90065A8E6 /* ACGCDThrottle.m */; };
 		4219017C1D9E0D4D00DF94B0 /* AppCanKitSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 421901731D9E0D4D00DF94B0 /* AppCanKitSwift.framework */; };
 		421901831D9E0D4D00DF94B0 /* AppCanKit-Swift.h in Headers */ = {isa = PBXBuildFile; fileRef = 421901751D9E0D4D00DF94B0 /* AppCanKit-Swift.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4219018D1D9E0D8300DF94B0 /* JSArgument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4219018A1D9E0D8300DF94B0 /* JSArgument.swift */; };
-		4219018E1D9E0D8300DF94B0 /* JSArgumentConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4219018B1D9E0D8300DF94B0 /* JSArgumentConvertible.swift */; };
-		4219018F1D9E0D8300DF94B0 /* JSFunctionRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4219018C1D9E0D8300DF94B0 /* JSFunctionRef.swift */; };
 		421901931D9E0DA200DF94B0 /* ACLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421901921D9E0DA200DF94B0 /* ACLog.swift */; };
-		4219BE3D1DC1A475002E5C4E /* JSArgumentSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4219BE3C1DC1A475002E5C4E /* JSArgumentSpec.swift */; };
 		4219BE421DC1A5EA002E5C4E /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4219BE401DC1A5EA002E5C4E /* Nimble.framework */; };
 		4219BE431DC1A5EA002E5C4E /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4219BE401DC1A5EA002E5C4E /* Nimble.framework */; };
 		4219BE441DC1A5EA002E5C4E /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4219BE411DC1A5EA002E5C4E /* Quick.framework */; };
@@ -24,8 +20,6 @@
 		4219BE471DC1A98C002E5C4E /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4219BE411DC1A5EA002E5C4E /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		4219BE491DC1A9A5002E5C4E /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4219BE401DC1A5EA002E5C4E /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4219BE4A1DC1A9A5002E5C4E /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4219BE411DC1A5EA002E5C4E /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		4219BE4C1DC1AB11002E5C4E /* JSArgumentSpec.js in Resources */ = {isa = PBXBuildFile; fileRef = 4219BE4B1DC1AB11002E5C4E /* JSArgumentSpec.js */; };
-		4219BE4D1DC1AB11002E5C4E /* JSArgumentSpec.js in Resources */ = {isa = PBXBuildFile; fileRef = 4219BE4B1DC1AB11002E5C4E /* JSArgumentSpec.js */; };
 		421AE5271CF57181001A5053 /* AppCanKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 421AE5261CF57181001A5053 /* AppCanKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		421AE52E1CF57181001A5053 /* AppCanKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 421AE5231CF57181001A5053 /* AppCanKit.framework */; };
 		421AE5751CF5825C001A5053 /* ACMetamacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 421AE5741CF5825C001A5053 /* ACMetamacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -65,6 +59,8 @@
 		42ED03F91CFC34E1009134BE /* ACJSFunctionRef.m in Sources */ = {isa = PBXBuildFile; fileRef = 42ED03F71CFC34E1009134BE /* ACJSFunctionRef.m */; };
 		42ED03FF1CFC3D9E009134BE /* ACJSFunctionRefInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 42ED03FE1CFC3D9E009134BE /* ACJSFunctionRefInternal.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		42FAC5B91DCB199D0072DFCF /* AppCanWindowObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 42FAC5B81DCB199D0072DFCF /* AppCanWindowObject.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		5D50469A3F6845329CC8D39C /* PluginArgument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E63880AA0745A698270F19 /* PluginArgument.swift */; };
+		41506B6766AA4B16B6229FB2 /* PluginArgumentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC0F05D82FA416CAE3D9BB0 /* PluginArgumentTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -124,14 +120,9 @@
 		421901761D9E0D4D00DF94B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4219017B1D9E0D4D00DF94B0 /* AppCanKitSwiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppCanKitSwiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		421901821D9E0D4D00DF94B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4219018A1D9E0D8300DF94B0 /* JSArgument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSArgument.swift; sourceTree = "<group>"; };
-		4219018B1D9E0D8300DF94B0 /* JSArgumentConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSArgumentConvertible.swift; sourceTree = "<group>"; };
-		4219018C1D9E0D8300DF94B0 /* JSFunctionRef.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSFunctionRef.swift; sourceTree = "<group>"; };
 		421901921D9E0DA200DF94B0 /* ACLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ACLog.swift; sourceTree = "<group>"; };
-		4219BE3C1DC1A475002E5C4E /* JSArgumentSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSArgumentSpec.swift; sourceTree = "<group>"; };
 		4219BE401DC1A5EA002E5C4E /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		4219BE411DC1A5EA002E5C4E /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
-		4219BE4B1DC1AB11002E5C4E /* JSArgumentSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = JSArgumentSpec.js; sourceTree = "<group>"; };
 		421AE5231CF57181001A5053 /* AppCanKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AppCanKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		421AE5261CF57181001A5053 /* AppCanKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppCanKit.h; sourceTree = "<group>"; };
 		421AE5281CF57181001A5053 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -175,6 +166,8 @@
 		42ED03F71CFC34E1009134BE /* ACJSFunctionRef.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACJSFunctionRef.m; sourceTree = "<group>"; };
 		42ED03FE1CFC3D9E009134BE /* ACJSFunctionRefInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ACJSFunctionRefInternal.h; path = AppCanKit/ACJSFunctionRefInternal.h; sourceTree = "<group>"; };
 		42FAC5B81DCB199D0072DFCF /* AppCanWindowObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppCanWindowObject.h; sourceTree = "<group>"; };
+		69E63880AA0745A698270F19 /* PluginArgument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PluginArgument.swift; sourceTree = "<group>"; };
+		2CC0F05D82FA416CAE3D9BB0 /* PluginArgumentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PluginArgumentTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,9 +211,7 @@
 		421901741D9E0D4D00DF94B0 /* AppCanKit-Swift */ = {
 			isa = PBXGroup;
 			children = (
-				4219018A1D9E0D8300DF94B0 /* JSArgument.swift */,
-				4219018C1D9E0D8300DF94B0 /* JSFunctionRef.swift */,
-				4219018B1D9E0D8300DF94B0 /* JSArgumentConvertible.swift */,
+				69E63880AA0745A698270F19 /* PluginArgument.swift */,
 				421901751D9E0D4D00DF94B0 /* AppCanKit-Swift.h */,
 				421901761D9E0D4D00DF94B0 /* Info.plist */,
 				421901921D9E0DA200DF94B0 /* ACLog.swift */,
@@ -231,9 +222,8 @@
 		4219017F1D9E0D4D00DF94B0 /* AppCanKit-SwiftTests */ = {
 			isa = PBXGroup;
 			children = (
+				2CC0F05D82FA416CAE3D9BB0 /* PluginArgumentTests.swift */,
 				421901821D9E0D4D00DF94B0 /* Info.plist */,
-				4219BE3C1DC1A475002E5C4E /* JSArgumentSpec.swift */,
-				4219BE4B1DC1AB11002E5C4E /* JSArgumentSpec.js */,
 			);
 			path = "AppCanKit-SwiftTests";
 			sourceTree = "<group>";
@@ -517,7 +507,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4219BE4D1DC1AB11002E5C4E /* JSArgumentSpec.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -532,7 +521,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4219BE4C1DC1AB11002E5C4E /* JSArgumentSpec.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -543,10 +531,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D50469A3F6845329CC8D39C /* PluginArgument.swift in Sources */,
 				421901931D9E0DA200DF94B0 /* ACLog.swift in Sources */,
-				4219018D1D9E0D8300DF94B0 /* JSArgument.swift in Sources */,
-				4219018E1D9E0D8300DF94B0 /* JSArgumentConvertible.swift in Sources */,
-				4219018F1D9E0D8300DF94B0 /* JSFunctionRef.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -554,7 +540,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4219BE3D1DC1A475002E5C4E /* JSArgumentSpec.swift in Sources */,
+				41506B6766AA4B16B6229FB2 /* PluginArgumentTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
